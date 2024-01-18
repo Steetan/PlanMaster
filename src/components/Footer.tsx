@@ -23,19 +23,26 @@ const Footer: React.FC<IFooter> = ({
 	const [inputDate, setInputDate] = React.useState<string>('')
 
 	const createTask = () => {
-		const dateWithoutTime = new Date()
-		dateWithoutTime.setHours(0, 0, 0, 0)
-		setArrTask((prevItems) => [
-			...prevItems,
-			{
-				id: uuidv4(),
-				title: inputTitle,
-				description: inputDesc,
-				time: inputDate,
-				selectedDate: selectedDate instanceof Date ? selectedDate : dateWithoutTime,
-				isChecked: false,
-			},
-		])
+		if (inputTitle && inputDate && inputDesc) {
+			const dateWithoutTime = new Date()
+			dateWithoutTime.setHours(0, 0, 0, 0)
+			setArrTask((prevItems) => [
+				...prevItems,
+				{
+					id: uuidv4(),
+					title: inputTitle,
+					description: inputDesc,
+					time: inputDate,
+					selectedDate: selectedDate instanceof Date ? selectedDate : dateWithoutTime,
+					isChecked: false,
+				},
+			])
+			setInputTitle('')
+			setInputDesc('')
+			setInputDate('')
+		} else {
+			alert('The fields are not filled in!')
+		}
 	}
 
 	React.useEffect(() => {
