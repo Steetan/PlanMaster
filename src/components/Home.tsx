@@ -34,7 +34,7 @@ const Home: React.FC<IHome> = ({
 
 	if (selectedSort === 'Completed') {
 		filteredTasksBySort = tasksByDate.filter((obj: IArrTask) => obj.isChecked)
-	} else if (selectedSort === 'No completed') {
+	} else if (selectedSort === 'Not completed') {
 		filteredTasksBySort = tasksByDate.filter((obj: IArrTask) => !obj.isChecked)
 	}
 
