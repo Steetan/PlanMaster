@@ -68,8 +68,9 @@ const Footer: React.FC<IFooter> = ({
 			</div>
 
 			<div className='footer-bottom flex gap-6'>
-				<div className='border-black border-2 border-solid rounded-xl flex p-2 items-center gap-8'>
+				<div className='border-black border-2 border-solid rounded-xl flex p-2 items-center gap-3'>
 					<h3 className='text-xl'>{dateInput.toString()}</h3>
+					<div className='min-h-full bg-gray-400 opacity-60' style={{ width: 1 }}></div>
 					<input
 						className='p-2 text-xl border-gray-400 border-b-2 border-solid'
 						type='time'

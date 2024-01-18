@@ -67,7 +67,6 @@ const Home: React.FC<IHome> = ({
 						key={index}
 						idTask={item.id}
 						propsTask={item}
-						index={index}
 						arrTask={arrTask}
 						setArrTask={setArrTask}
 					/>

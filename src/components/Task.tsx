@@ -5,12 +5,11 @@ import { Checkbox } from 'antd'
 interface ITask {
 	propsTask: IArrTask
 	arrTask: IArrTask[]
-	index: number
 	setArrTask: React.Dispatch<React.SetStateAction<IArrTask[]>>
 	idTask: string
 }
 
-const Task: React.FC<ITask> = ({ propsTask, index, arrTask, setArrTask, idTask }) => {
+const Task: React.FC<ITask> = ({ propsTask, arrTask, setArrTask, idTask }) => {
 	const [isChecked, setIsChecked] = React.useState<boolean>(false)
 
 	const deleteTask = (idTask: string) => {

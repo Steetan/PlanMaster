@@ -159,9 +159,10 @@
 @media (max-width: 570px) {
   .input-wrapper {
     flex-direction: column;
+    width: 100%;
   }
   .footer-wrapper {
-    margin-top: 20px;
+    padding-top: 20px;
   }
   .task,
   .task-header {
@@ -170,7 +171,6 @@
   .task-title {
     font-size: 1.5rem;
   }
-  
 
   .task-title,
   .task-text {
