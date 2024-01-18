@@ -1,13 +1,198 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.option-sort {
+  transition: .1s linear;
+  cursor: pointer;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.arrow-active {
+  transition: .2s ease-in-out;
+}
+
+.arrow-hide {
+  transition: .2s ease-in-out;
+  transform: rotate(180deg);
+}
+
+.delete-task {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  transition: .3s ease-in-out;
+  border-radius: 50%;
+}
+
+.deleteBody-task {
+  padding: 6px;
+  border-radius: 50%;
+  transition: .2s ease-in-out;
+}
+
+.deleteBody-task:hover {
+  background-color: red;
+  transform: rotate(180deg);
+}
+
+.delete-task::before,
+.delete-task::after {
+  content: "";
+  background-color: #000;
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  left: 0;
+  transition: .1s linear;
+}
+
+.deleteBody-task:hover .delete-task::before,
+.deleteBody-task:hover .delete-task::after {
+  background-color: #fff;
+}
+
+.delete-task::before {
+  top: 45%;
+  transform: rotate(45deg);
+}
+
+.delete-task::after {
+  bottom: 45%;
+  transform: rotate(-45deg);
+}
+
+.tasks {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.custom-checkbox .ant-checkbox-inner {
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+}
+
+.custom-checkbox .ant-checkbox-inner::after {
+  width: 10.7142857142857135px;
+  height: 18.142857142857142px;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #2647ea;
+  border-color: #2647ea;
+}
+
+.calendar {
+  min-width: 24rem; 
+}
+
+@media (min-width: 1024px) {
+  .btn-footer {
+    transition: .1s linear;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-footer::after {
+    content: "";
+    width: 200px;
+    height: 150px;
+    background-color: #000;
+    position: absolute;
+    top: -170px;
+    left: -120px;
+    transform: rotate(-45deg);
+    transition: .2s linear;
+    z-index: -1;
+  }
+  
+  .btn-footer:hover {
+    color: #fff;
+  }
+  
+  .btn-footer:hover::after {
+    top: -40px;
+    left: -30px;
+  }
+  
+  .option-sort:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
+
+@media (max-width: 1024px) {
+  .footer-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+    max-width: 700px;
+    flex-direction: column;
+  }
+  .home {
+    flex-direction: column;
+  }
+  .tasks {
+    max-height: 30vh;
+  }
+}
+
+@media (max-width: 840px) {
+  .search-input {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .sort-list {
+    width: 6rem;
+  }
+  .option-sort {
+    font-size: 1rem;
+  }
+  .title-logo {
+    display: none;
+  }
+}
+
+@media (max-width: 570px) {
+  .input-wrapper {
+    flex-direction: column;
+  }
+  .footer-wrapper {
+    margin-top: 20px;
+  }
+  .task,
+  .task-header {
+    flex-direction: column;
+  }
+  .task-title {
+    font-size: 1.5rem;
+  }
+  
+
+  .task-title,
+  .task-text {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 440px) {
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 400px) {
+  .calendar {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .current-date {
+    font-size: 1.25rem;
+  }
 }
