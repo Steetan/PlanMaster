@@ -1,22 +1,25 @@
 import React from 'react'
 import { IArrTask } from '../App'
 import { Checkbox } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { checkArrTask, newArrTask } from '../redux/slices/taskSlice'
+import { RootState } from '../redux/store'
 
 interface ITask {
 	propsTask: IArrTask
-	arrTask: IArrTask[]
-	setArrTask: React.Dispatch<React.SetStateAction<IArrTask[]>>
 	idTask: string
 }
 
-const Task: React.FC<ITask> = ({ propsTask, arrTask, setArrTask, idTask }) => {
+const Task: React.FC<ITask> = ({ propsTask, idTask }) => {
 	const [isChecked, setIsChecked] = React.useState<boolean>(false)
+
+	const arrTask = useSelector((state: RootState) => state.taskSlice.arrTask)
+	const dispatch = useDispatch()
 
 	const deleteTask = (idTask: string) => {
 		const answer: boolean = window.confirm('Вы уверены что хотите удалить эту задачу?')
-		if (answer) {
-			setArrTask(arrTask.filter((task) => task.id !== idTask))
-		}
+
+		answer && dispatch(newArrTask(arrTask.filter((task) => task.id !== idTask)))
 	}
 
 	const changeCheck = (idTask: string) => {
@@ -25,10 +28,7 @@ const Task: React.FC<ITask> = ({ propsTask, arrTask, setArrTask, idTask }) => {
 		if (taskIndex !== -1) {
 			setIsChecked(!isChecked)
 
-			const updatedArrTask = [...arrTask]
-			updatedArrTask[taskIndex].isChecked = !updatedArrTask[taskIndex].isChecked
-
-			setArrTask(updatedArrTask)
+			dispatch(checkArrTask(idTask))
 		}
 	}
 

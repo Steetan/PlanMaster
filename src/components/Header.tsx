@@ -1,24 +1,30 @@
 import React from 'react'
 import '../index.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
+import { setSelectedSort } from '../redux/slices/selectSlice'
 
-interface IHeader {
-	selectedSort: string
-	setSelectedSort: React.Dispatch<React.SetStateAction<string>>
-}
-
-const Header: React.FC<IHeader> = ({ selectedSort, setSelectedSort }) => {
+const Header: React.FC = () => {
 	const [date, setDate] = React.useState(new Date())
 	const [isVisible, setIsVisible] = React.useState(false)
+
+	const selectedSort = useSelector((state: RootState) => state.selectSlice.selectedSort)
+	const dispatch = useDispatch()
 
 	const arrSort = ['All', 'Completed', 'Not completed']
 
 	React.useEffect(() => {
-		const interval = setInterval(() => {
-			setDate(new Date())
-		}, 1000)
+		const now = new Date()
+		const tomorrow = new Date(now)
+		tomorrow.setDate(tomorrow.getDate() + 1)
+		tomorrow.setHours(0, 0, 0, 0)
 
-		return () => clearInterval(interval)
-	}, [])
+		const timeout = setTimeout(() => {
+			setDate(new Date())
+		}, tomorrow.getTime() - now.getTime())
+
+		return () => clearTimeout(timeout)
+	}, [date])
 
 	const dateDay = date.getDay() > 10 ? `0${date.getDate()}` : `${date.getDate()}`
 	const dateMonth = date.toLocaleString('en-US', { month: 'long' })
@@ -54,7 +60,7 @@ const Header: React.FC<IHeader> = ({ selectedSort, setSelectedSort }) => {
 								<h2
 									key={index}
 									className='option-sort'
-									onClick={() => setSelectedSort(arrSort[index])}
+									onClick={() => dispatch(setSelectedSort(arrSort[index]))}
 								>
 									{item}
 								</h2>

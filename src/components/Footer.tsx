@@ -1,22 +1,16 @@
 import React from 'react'
-import { IArrTask, Value } from '../App'
+import { IArrTask } from '../App'
 import { v4 as uuidv4 } from 'uuid'
+import { useDispatch, useSelector } from 'react-redux'
+import { setTasksByDate, updateArrTask } from '../redux/slices/taskSlice'
+import { RootState } from '../redux/store'
 
-interface IFooter {
-	setArrTask: React.Dispatch<React.SetStateAction<IArrTask[]>>
-	selectedDate: Date | Value
-	selectedSort: string
-	arrTask: IArrTask[]
-	setTasksByDate: React.Dispatch<React.SetStateAction<IArrTask[]>>
-}
+const Footer: React.FC = () => {
+	const arrTask = useSelector((state: RootState) => state.taskSlice.arrTask)
+	const selectedDate = useSelector((state: RootState) => state.selectSlice.selectedDate)
 
-const Footer: React.FC<IFooter> = ({
-	setArrTask,
-	selectedDate,
-	arrTask,
-	setTasksByDate,
-	selectedSort,
-}) => {
+	const dispatch = useDispatch()
+
 	const dateInput = selectedDate instanceof Date ? selectedDate.toLocaleDateString('ru') : ''
 	const [inputTitle, setInputTitle] = React.useState<string>('')
 	const [inputDesc, setInputDesc] = React.useState<string>('')
@@ -26,17 +20,17 @@ const Footer: React.FC<IFooter> = ({
 		if (inputTitle && inputDate && inputDesc) {
 			const dateWithoutTime = new Date()
 			dateWithoutTime.setHours(0, 0, 0, 0)
-			setArrTask((prevItems) => [
-				...prevItems,
-				{
+			dispatch(
+				updateArrTask({
 					id: uuidv4(),
 					title: inputTitle,
 					description: inputDesc,
 					time: inputDate,
-					selectedDate: selectedDate instanceof Date ? selectedDate : dateWithoutTime,
+					selectedDate:
+						selectedDate instanceof Date ? selectedDate.toString() : dateWithoutTime.toString(),
 					isChecked: false,
-				},
-			])
+				}),
+			)
 			setInputTitle('')
 			setInputDesc('')
 			setInputDate('')
@@ -46,16 +40,18 @@ const Footer: React.FC<IFooter> = ({
 	}
 
 	React.useEffect(() => {
-		setTasksByDate(
-			arrTask.filter(
-				(obj: IArrTask) => new Date(obj.selectedDate).toString() === selectedDate?.toString(),
+		dispatch(
+			setTasksByDate(
+				arrTask.filter(
+					(obj: IArrTask) => new Date(obj.selectedDate).toString() === selectedDate?.toString(),
+				),
 			),
 		)
 	}, [arrTask, selectedDate])
 
 	return (
 		<div className='footer-wrapper mt-auto mb-2 flex items-center justify-center gap-6'>
-			<div className='input-wrapper border-black border-2 border-solid flex gap-8 rounded-xl p-2 px-4'>
+			<div className='input-wrapper border-black border-2 border-solid flex gap-5 rounded-xl p-2 px-4'>
 				<input
 					className='p-2 text-xl border-gray-400 border-b-2 border-solid'
 					type='text'
@@ -64,6 +60,7 @@ const Footer: React.FC<IFooter> = ({
 					value={inputTitle}
 					onChange={(e) => setInputTitle(e.target.value)}
 				/>
+				<div className='min-h-full bg-gray-400 opacity-60' style={{ width: 1 }}></div>
 				<input
 					className='p-2 text-xl border-gray-400 border-b-2 border-solid'
 					type='text'
