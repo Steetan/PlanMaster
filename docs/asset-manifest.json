@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.fbc379ed.css",
-    "main.js": "/static/js/main.8fa9ad66.js",
-    "static/js/787.8a4ef2b2.chunk.js": "/static/js/787.8a4ef2b2.chunk.js",
-    "static/media/todoLogo.png": "/static/media/todoLogo.0c55e38891dae2a58c92.png",
-    "index.html": "/index.html",
-    "main.fbc379ed.css.map": "/static/css/main.fbc379ed.css.map",
-    "main.8fa9ad66.js.map": "/static/js/main.8fa9ad66.js.map",
-    "787.8a4ef2b2.chunk.js.map": "/static/js/787.8a4ef2b2.chunk.js.map"
+    "main.css": "./static/css/main.fbc379ed.css",
+    "main.js": "./static/js/main.8fa9ad66.js",
+    "static/js/787.8a4ef2b2.chunk.js": "./static/js/787.8a4ef2b2.chunk.js",
+    "static/media/todoLogo.png": "./static/media/todoLogo.0c55e38891dae2a58c92.png",
+    "index.html": "./index.html",
+    "main.fbc379ed.css.map": "./static/css/main.fbc379ed.css.map",
+    "main.8fa9ad66.js.map": "./static/js/main.8fa9ad66.js.map",
+    "787.8a4ef2b2.chunk.js.map": "./static/js/787.8a4ef2b2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fbc379ed.css",
